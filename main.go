@@ -22,5 +22,6 @@ func main() {
     fmt.Println("Ticker has value:", *tickerFlag)
     ticker := NewTicker(*tickerFlag, "NASDAQ", "USD")
     fmt.Println(*ticker)
+    WriteTickerToJsonFile(ticker)
 }
 

@@ -5,6 +5,12 @@
 *.so
 *.dylib
 
+# cli binary
+vt-spy
+
+# cli uses json file outputs
+*.json
+
 # Test binary, built with `go test -c`
 *.test
 
