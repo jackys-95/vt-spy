@@ -5,7 +5,11 @@ import (
     "log"
     "os"
     "encoding/json"
+    "regexp"
 )
+
+const NYSEregex = `[a-zA-Z]{4}`
+const NASDAQregex = `[a-zA-Z]{4}`
 
 type Ticker struct {
     Symbol, Exchange, Currency string
@@ -17,6 +21,11 @@ func NewTicker(symbol, exchange, currency string) *Ticker {
     ticker.Exchange = exchange
     ticker.Currency = currency
     return ticker
+}
+
+func validateTickerSymbol(symbol string) bool {
+    nyseRe, nasdaqRe := regexp.MustCompile(NYSEregex), regexp.MustCompile(NASDAQregex)
+    return nyseRe.MatchString(symbol) || nasdaqRe.MatchString(symbol)
 }
 
 func WriteTickerToJsonFile(ticker *Ticker) {
