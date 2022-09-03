@@ -36,16 +36,11 @@ func parseTickersFlag(tickers string) []Ticker {
 
 func main() {
     flag.Parse()
-
-    fmt.Println("Watchlist has value:", *watchListFlag)
-    fmt.Println("Ticker has value:", *tickerFlag)
-    fmt.Println("Tickers has value:", *tickersFlag)
-
     ticker := NewTicker(*tickerFlag, "NASDAQ", "USD")
-    fmt.Println(*ticker)
-    fmt.Println(validateTickerSymbol(ticker.Symbol))
-    WriteTickerToJsonFile(ticker)
-
-    fmt.Println(parseTickersFlag(*tickersFlag))
+    if validateTickerSymbol(ticker.Symbol) {
+        addTickerToWatchlist(*ticker)
+    } else {
+        fmt.Printf("%v is an invalid ticker symbol.\n", ticker.Symbol)
+    }
 }
 
